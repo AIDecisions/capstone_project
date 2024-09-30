@@ -1,0 +1,164 @@
+/* General styling for the body and layout */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+/* Navigation bar styling */
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Sidebar filter section for index page */
+.filter-section {
+    width: 250px;
+    float: left;
+    padding: 20px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    height: 100vh;
+}
+
+/* Content section adjustment for index page */
+.content-section {
+    margin-left: 270px; /* Moves content to the right to account for the sidebar */
+    padding: 20px;
+}
+
+/* Welcome section styling */
+.welcome-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Select2 container adjustment */
+.select2-container {
+    width: 100% !important;
+}
+
+/* Filter box styling */
+.filter-box {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.filter-box h6 {
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.form-group label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #343a40;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* About Us section */
+.about-section {
+    text-align: center;
+    padding: 50px;
+}
+
+/* Team container styling */
+.team-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+/* Individual team member card styling */
+.team-member {
+    width: 250px;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Team member image styling */
+.team-member img {
+    width: 100%;
+    border-radius: 50%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover image styling for team members */
+.hover-image {
+    position: relative;
+}
+
+.hover-image img {
+    width: 100%;
+    border-radius: 50%;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.hover-image img:nth-child(2) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.hover-image:hover img:nth-child(2) {
+    opacity: 1;
+}
+
+.hover-image:hover img:nth-child(1) {
+    opacity: 0;
+}
+
+/* Honorary Mentions section */
+.honorary-mentions {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.honorary-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+/* Styling for each honorary mention */
+.team-member {
+    width: 250px;
+    margin: 20px;
+    text-align: center;
+}
+
+.team-member img {
+    width: 100%;
+    border-radius: 50%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for team member names and descriptions */
+.team-member h3 {
+    margin-top: 15px;
+}
+
+.team-member p {
+    font-size: 1rem;
+}
+
+/* Styling for honorary mentions title and description */
+.honorary-mentions h2 {
+    margin-bottom: 30px;
+}
+
+.honorary-mentions p {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
