@@ -13,7 +13,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.html">Anime Recommender</a>
+        <a class="navbar-brand" href="/index">Anime Recommender</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -70,7 +70,7 @@
                     <option value="MartialArts">Martial Arts</option>
                     <option value="Mecha">Mecha</option>
                     <option value="Military">Military</option>
-                    <option value="Music">Music</option>
+                    <!-- <option value="Music">Music</option>  Remove to not conflict with Music type -->
                     <option value="Mystery">Mystery</option>
                     <option value="Parody">Parody</option>
                     <option value="Police">Police</option>
@@ -108,12 +108,12 @@
 
             <div class="form-group">
                 <label for="min_rating">Minimum Rating (0-10)</label>
-                <input type="number" class="form-control" id="min_rating" min="0" max="10" step="1" value="0">
+                <input type="number" class="form-control" id="min-rating-container" min="0" max="10" step="1" value="0">
             </div>
 
             <div class="form-group">
                 <label for="episodes">Maximum Number of Episodes (1-1818)</label>
-                <input type="number" class="form-control" id="episodes" min="1" max="1818" step="1" value="1">
+                <input type="number" class="form-control" id="min-episodes-container" min="1" max="1818" step="1" value="1">
             </div>
 
             <button type="button" class="btn btn-dark btn-block" id="search_anime_features_btn">Find Anime!</button>

@@ -29,17 +29,52 @@ def tableau():
     # Return template and data
     return render_template("tableau2.html")
 
-@app.route("/makePredictions", methods=["POST"])
-def make_predictions():
+@app.route('/makePredictions_byname', methods=['POST'])
+def make_predictions_byname():
+    try:
+        data = request.get_json()
+        print("Request JSON data received from client:", data)  # Log input data
+        
+        # Log specific sections to identify where the failure is happening
+        if 'data' not in data:
+            raise ValueError("The 'data' field is missing in the request JSON")
+        anime_name = data['data'].get('anime_name')
+        if not anime_name:
+            raise ValueError("Anime name is missing in the request")
+        
+        print("Anime Name to predict:", anime_name)  # Log the anime name
+
+        # Call the method from the instantiated model_helper
+        recommendations = modelHelper.makePredictions_byname(anime_name)  
+
+        # Log the recommendations
+        print(f"Recommendations generated: {recommendations}")
+
+        response = {
+            'prediction': recommendations  # Return the model output
+        }
+
+        return jsonify(response), 200
+
+    except Exception as e:
+        # Log the full error stack trace and message
+        print(f"Error occurred: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route("/makePredictions_byfeatures", methods=["POST"])
+def makePredictions_byfeatures():
     content = request.json["data"]
     print("test")
     print(content)
 
     # parse
-    anime_name = content["select2-anime_name-container"]
+    genre = content["select2-genre-container"]
+    type = content["select2-type-container"]
+    rating = content["min-rating-container"]
+    episodes = content["min-episodes-container"]
     anime_length = 10
 
-    preds = modelHelper.makePredictions(anime_length, anime_name)
+    preds = modelHelper.makePredictions_byfeatures(anime_length, genre, type, rating, episodes)
     return(jsonify({"ok": True, "prediction": str(preds)}))
 
 
@@ -59,4 +94,5 @@ def add_header(r):
 
 #main
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) 
+#    app.run(debug=True, use_reloader=False) # Disable reloader to prevent automatic restarts
