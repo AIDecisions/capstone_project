@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     let currentAjaxRequest = null;  // Variable to store the current AJAX request
     let animeList = [];  // Variable to store the list of anime names
-    $('#data_table_container').DataTable();
+    // $('#data_table_container').DataTable();
 
     // let animeTable = new DataTable('#data_table_container', {
     //     columns: [
@@ -155,28 +155,28 @@ $(document).ready(function() {
 // }
 
     // // Function to populate the table with the prediction results
-    function populateTable(recommendations) {
-        // Clear previous data
-        $('#data_table_container').DataTable().clear().destroy();
+    // function populateTable(recommendations) {
+    //     // Clear previous data
+    //     $('#data_table_container').DataTable().clear().destroy();
 
-        // Build the table
-        let table = d3.select("#data_table_container");
-        let tbody = table.select("tbody");
-        tbody.html("");
+    //     // Build the table
+    //     let table = d3.select("#data_table_container");
+    //     let tbody = table.select("tbody");
+    //     tbody.html("");
 
-        // Append a row for each anime
-        for (let i = 0; i < recommendations.length; i++) {
-            let row = tbody.append("tr");
-            row.append("td").text(recommendations[i].anime_id);
-            row.append("td").text(recommendations[i].name);
-            row.append("td").text(recommendations[i].rating);
-            row.append("td").text(recommendations[i].members);
-            row.append("td").text(recommendations[i].distance.toFixed(3));
-        }
+    //     // Append a row for each anime
+    //     for (let i = 0; i < recommendations.length; i++) {
+    //         let row = tbody.append("tr");
+    //         row.append("td").text(recommendations[i].anime_id);
+    //         row.append("td").text(recommendations[i].name);
+    //         row.append("td").text(recommendations[i].rating);
+    //         row.append("td").text(recommendations[i].members);
+    //         row.append("td").text(recommendations[i].distance.toFixed(3));
+    //     }
 
-        // Create the datatable
-        $('#data_table_container').DataTable();
-    }
+    //     // Create the datatable
+    //     $('#data_table_container').DataTable();
+    // }
 
     function makePredictions_byname() {
         let anime_id = $('#anime_name').val().trim();
@@ -330,7 +330,7 @@ $(document).ready(function() {
     // Initialize all components
     function initializeApp() {
         loadAnimeNames();  // Load the anime names from sqlite
-        populateTable([]);  // Initialize the table with empty data
+        // populateTable([]);  // Initialize the table with empty data
         initializeMultiSelect();  // Initialize the genres and types multi-selects
         handleSearchButtonClick();  // Set up the event listener for the search button
         initializeShareButton();  // Set up the share button functionality
