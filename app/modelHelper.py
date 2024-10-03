@@ -119,7 +119,7 @@ import pandas as pd
 import pickle
 
 class ModelHelper:
-    def makePredictions_byname(self, episode, rating, members, Action, Adventure, Cars, Comedy, Dementia, Demons, Drama, Fantasy, Game, Historical, Horror, Josei, Kids, Magic, MartialArts, Mecha, Military, Mystery, Parody, Police, Psychological, Romance, Samurai, School,SciFi, Seinen, Shoujo, ShoujoAi, Shounen, ShounenAi, SliceofLife, Space, Sports, SuperPower, Supernatural, Thriller, Vampire, Movie, Music, ONA, OVA, Special, TV):
+    def makePredictions_byname(self, episode, rating, members, Action, Adventure, Cars, Comedy, Dementia, Demons, Drama, Fantasy, Game, Historical, Horror, Josei, Kids, Magic, MartialArts, Mecha, Military, Mystery, Parody, Police, Psychological, Romance, Samurai, School, SciFi, Seinen, Shoujo, ShoujoAi, Shounen, ShounenAi, SliceofLife, Space, Sports, SuperPower, Supernatural, Thriller, Vampire, Movie, Music, ONA, OVA, Special, TV, genres, types, minRating, maxEpisodes):
         # Extract relevant features (remove anime_id)
         features = {
             'episodes': episode,
@@ -169,7 +169,11 @@ class ModelHelper:
             'Special': Special,
             'TV': TV
         }
-        # print(f"Features: {features}")
+
+        # Convert minRating from tuple to float
+        minRating = minRating[0]
+
+        maxEpisodes = int(maxEpisodes)
 
         # Convert the features dictionary into a DataFrame
         df = pd.DataFrame(features)
@@ -181,14 +185,53 @@ class ModelHelper:
         # Generate recommendations using the 'kneighbors' method
         try:
             distances, indices = model.kneighbors(df)
-            print(f"Distances: {distances}, Indices: {indices}")
             
             # predictions
             # Return both distances and indices as a dictionary
-            return {
-                "indices": indices[0].tolist(),
+            predictions_dict = {
+                "anime_id": indices[0].tolist(),
                 "distances": distances[0].tolist()
             }
+
+            # Convert predictions_dict to a dataframe
+            predictions_df = pd.DataFrame(predictions_dict)
+
+            # Read original anime_clean.csv file
+            anime_clean_df = pd.read_csv("anime_b4_scale_ml.csv")
+
+            # Merge predictions_df with anime_clean_df
+            recommendations_df = pd.merge(predictions_df, anime_clean_df, how='inner', on='anime_id')
+
+            # Filter recommendations_df based on genres, types, minRating, and maxEpisodes
+            # Filter genres if any
+            # Convert genres to a list
+            genres = list(genres[0])
+
+            # Ensure there are genres selected
+            if len(genres) > 0:
+                # Use .loc to filter rows where any of the selected genres columns are 1
+                recommendations_df = recommendations_df.loc[(recommendations_df[genres] == 1).any(axis=1)]
+
+            # Filter types if any
+            # Convert types to a list
+            types = list(types[0])
+
+            if len(types) > 0:
+                recommendations_df = recommendations_df.loc[(recommendations_df[types] == 1).any(axis=1)]
+
+            # Filter minRating if any
+            if minRating > 0:
+                recommendations_df = recommendations_df.loc[recommendations_df['rating'] >= minRating]
+
+
+            # Filter Max Episodes if any
+            if maxEpisodes > 0:
+                recommendations_df = recommendations_df.loc[recommendations_df['episodes'] <= maxEpisodes]
+
+            # Convert recommendations_df to a dictionary
+            recommendations = recommendations_df.to_dict(orient="records")
+
+            return recommendations
         except Exception as e:
             print(f"Error generating recommendations: {str(e)}")
             return []
