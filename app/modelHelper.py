@@ -182,15 +182,12 @@ class ModelHelper:
         try:
             distances, indices = model.kneighbors(df)
             print(f"Distances: {distances}, Indices: {indices}")
-
-            predictions = {}
-
             
-            # predictions.append() = 
+            # predictions
             # Return both distances and indices as a dictionary
             return {
-                "indices": indices[0],
-                "distances": distances[0]
+                "indices": indices[0].tolist(),
+                "distances": distances[0].tolist()
             }
         except Exception as e:
             print(f"Error generating recommendations: {str(e)}")

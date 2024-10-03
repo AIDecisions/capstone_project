@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, jsonify
 from modelHelper import ModelHelper
 from modelHelper import SQLHelper
 import pickle
+import json
 
 #################################################
 # Flask Setup
@@ -28,7 +29,7 @@ def get_anime(anime_id):
     return (jsonify(data))
 
 #################################################
-# Flask Routes
+# Model Routes
 #################################################
 
 # HTML Routes
@@ -100,7 +101,7 @@ def makePredictions_byname():
     TV = content['TV']
 
     preds = modelHelper.makePredictions_byname(episodes, rating, members, Action, Adventure, Cars, Comedy, Dementia, Demons, Drama, Fantasy, Game, Historical, Horror, Josei, Kids, Magic, MartialArts, Mecha, Military, Mystery, Parody, Police, Psychological, Romance, Samurai, School, SciFi, Seinen, Shoujo, ShoujoAi, Shounen, ShounenAi, SliceofLife, Space, Sports, SuperPower, Supernatural, Thriller, Vampire, Movie, Music, ONA, OVA, Special, TV)
-    return(jsonify({"ok": True, "prediction": str(preds)}))
+    return(jsonify({"ok": True, "prediction": json.dumps(preds)}))
 
 # @app.route("/makePredictions_byname", methods=["POST"])
 # def makePredictions_byname(self, payload):
