@@ -5,6 +5,15 @@ $(document).ready(function() {
     // https://makitweb.com/loading-data-remotely-in-select2-with-ajax/
     let currentAjaxRequest = null;  // Variable to store the current AJAX request
     let animeList = [];  // Variable to store the list of anime names
+    // let animeTable = $('#data_table_container').DataTable({
+    //     columns: [
+    //         { title: "Anime ID" },
+    //         // { title: "Anime Name" },
+    //         // { title: "Rating" },
+    //         // { title: "Members" },
+    //         { title: "Distance" }
+    //     ]
+    // });
 
     // Function to initialize Select2 for anime names
     function initializeAnimeNameSelect() {
@@ -37,10 +46,7 @@ $(document).ready(function() {
             },
             allowClear: true
         });
-    }
-    
-    
-    
+    } 
 
     // // Function to initialize Select2 for anime names using AJAX to fetch from JSON
     // function initializeAnimeNameSelect() {
@@ -160,6 +166,27 @@ $(document).ready(function() {
     //     });
     // }
 
+    // Function to populate the table with the prediction results
+    function populateTable(predictions) {
+        // Clear previous data
+        $('#data_table_container').DataTable().clear().destroy();
+
+        // Build the table
+        let table = d3.select("#data_table_container");
+        let tbody = table.select("tbody");
+        tbody.html("");
+
+        // Append a row for each anime
+        for (let i = 0; i < predictions.length; i++) {
+            let row = tbody.append("tr");
+            row.append("td").text(predictions[i].anime_id);
+            row.append("td").text(predictions[i].distance.toFixed(3));
+        }
+
+        // Create the datatable
+        $('#data_table_container').DataTable();
+    }
+
     function makePredictions_byname() {
         let anime_id = $('#anime_name').val().trim();
     
@@ -229,30 +256,42 @@ $(document).ready(function() {
                     contentType: 'application/json;charset=UTF-8',
                     data: JSON.stringify({ data: payload }),
                     success: function(returnedData) {
-                        console.log("Prediction Response: ", returnedData);
+                        // console.log("Prediction Response: ", returnedData);
+                        const {indices, distances} = JSON.parse(returnedData.prediction)
+                        // console.log(indices)
+                        // console.log(distances)
 
-                        $('#data_table_container').DataTable().clear().destroy();
+                        // Sort by distances (ascending)
+                        const recommendations = indices.map((idx, i) => ({
+                            index: idx,
+                            distance: distances[i]
+                        })).sort((a, b) => a.distance - b.distance);
 
-                        // Build the table
-                        let table = d3.select("#data_table_container");
-                        let tbody = table.select("tbody");
-                        tbody.html("");
+                        console.log (recommendations)
+                        populateTable(recommendations);
 
-                        // Append a row for each anime
-                        for (let i = 0; i < returnedData.length; i++) {
-                            let row = tbody.append("tr");
-                            row.append("td").text(returnedData[i].anime_id);
-                            row.append("td").text(returnedData[i].name);
-                            row.append("td").text(returnedData[i].rating);
-                            row.append("td").text(returnedData[i].members);
-                            row.append("td").text(returnedData[i].prediction);
-                            if (data[i].href == null) {
-                                row.append("td").text("N/A");
-                            } else
-                                row.append("td").html('<a href="' + data[i].href + '">Link</a>');
-                        }
-                        // Create the datatable
-                        $('#data_table_container').DataTable();
+                        // $('#data_table_container').DataTable().clear().destroy();
+
+                        // // Build the table
+                        // let table = d3.select("#data_table_container");
+                        // let tbody = table.select("tbody");
+                        // tbody.html("");
+
+                        // // Append a row for each anime
+                        // for (let i = 0; i < returnedData.length; i++) {
+                        //     let row = tbody.append("tr");
+                        //     row.append("td").text(returnedData[i].anime_id);
+                        //     row.append("td").text(returnedData[i].name);
+                        //     row.append("td").text(returnedData[i].rating);
+                        //     row.append("td").text(returnedData[i].members);
+                        //     row.append("td").text(returnedData[i].prediction);
+                        //     if (data[i].href == null) {
+                        //         row.append("td").text("N/A");
+                        //     } else
+                        //         row.append("td").html('<a href="' + data[i].href + '">Link</a>');
+                        // }
+                        // // Create the datatable
+                        // $('#data_table_container').DataTable();
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         console.error("Status: " + textStatus);
@@ -331,6 +370,7 @@ $(document).ready(function() {
     // Initialize all components
     function initializeApp() {
         loadAnimeNames();  // Load the anime names from sqlite
+        populateTable([]);  // Initialize the table with empty data
         initializeMultiSelect();  // Initialize the genres and types multi-selects
         handleSearchButtonClick();  // Set up the event listener for the search button
         initializeShareButton();  // Set up the share button functionality
