@@ -48,6 +48,16 @@ def tableau():
     # Return template and data
     return render_template("tableau.html")
 
+@app.route("/recommender")
+def recommender():
+    # Return template and data
+    return render_template("recommender.html")
+
+@app.route("/test")
+def test():
+    # Return template and data
+    return render_template("test.html")
+
 @app.route("/makePredictions_byname", methods=["POST"])
 def makePredictions_byname():
     content = request.json["data"]
@@ -98,9 +108,13 @@ def makePredictions_byname():
     ONA = content['ONA'],
     OVA = content['OVA'],
     Special = content['Special'],
-    TV = content['TV']
+    TV = content['TV'], 
+    genres = content['selectedGenres'],
+    types = content['selectedTypes'],
+    minRating = content['minRating'],
+    maxEpisodes = content['maxEpisodes']
 
-    preds = modelHelper.makePredictions_byname(episodes, rating, members, Action, Adventure, Cars, Comedy, Dementia, Demons, Drama, Fantasy, Game, Historical, Horror, Josei, Kids, Magic, MartialArts, Mecha, Military, Mystery, Parody, Police, Psychological, Romance, Samurai, School, SciFi, Seinen, Shoujo, ShoujoAi, Shounen, ShounenAi, SliceofLife, Space, Sports, SuperPower, Supernatural, Thriller, Vampire, Movie, Music, ONA, OVA, Special, TV)
+    preds = modelHelper.makePredictions_byname(episodes, rating, members, Action, Adventure, Cars, Comedy, Dementia, Demons, Drama, Fantasy, Game, Historical, Horror, Josei, Kids, Magic, MartialArts, Mecha, Military, Mystery, Parody, Police, Psychological, Romance, Samurai, School, SciFi, Seinen, Shoujo, ShoujoAi, Shounen, ShounenAi, SliceofLife, Space, Sports, SuperPower, Supernatural, Thriller, Vampire, Movie, Music, ONA, OVA, Special, TV, genres, types, minRating, maxEpisodes)
     return(jsonify({"ok": True, "prediction": json.dumps(preds)}))
 
 # @app.route("/makePredictions_byname", methods=["POST"])
@@ -174,21 +188,21 @@ def makePredictions_byname():
 #         print(f"Error generating recommendations: {str(e)}")
 #         return []
 
-@app.route("/makePredictions_byfeatures", methods=["POST"])
-def makePredictions_byfeatures():
-    content = request.json["data"]
-    print("test")
-    print(content)
+# @app.route("/makePredictions_byfeatures", methods=["POST"])
+# def makePredictions_byfeatures():
+#     content = request.json["data"]
+#     print("test")
+#     print(content)
 
-    # parse
-    genre = content["select2-genre-container"]
-    type = content["select2-type-container"]
-    rating = content["min-rating-container"]
-    episodes = content["min-episodes-container"]
-    anime_length = 10
+#     # parse
+#     genre = content["select2-genre-container"]
+#     type = content["select2-type-container"]
+#     rating = content["min-rating-container"]
+#     episodes = content["min-episodes-container"]
+#     anime_length = 10
 
-    preds = modelHelper.makePredictions_byfeatures(anime_length, genre, type, rating, episodes)
-    return(jsonify({"ok": True, "prediction": str(preds)}))
+#     preds = modelHelper.makePredictions_byfeatures(anime_length, genre, type, rating, episodes)
+#     return(jsonify({"ok": True, "prediction": str(preds)}))
 
 
 #############################################################

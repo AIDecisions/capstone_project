@@ -3,70 +3,30 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Anime Recommender</title>
+    <title>Awesome Anime Answers - Recommender</title>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/minty/bootstrap.min.css">
-    <!-- Select2 CSS for Multi-select Dropdowns -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Select2 JS for Multi-select Dropdowns -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <!-- Our CSS -->
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
-    <!-- JS -->
-    <script type="text/javascript" src="static/js/logic.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/minty/bootstrap.min.css">
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
+    <!-- CSS for Dynamic Table -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
-        .filter-section {
-            width: 250px;
-            float: left;
-            padding: 20px;
-            background-color: #fff;
-            border-right: 1px solid #ddd;
-            height: 100vh;
-        }
+    <!-- Data -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 
-        .filter-box {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-        .content-section {
-            margin-left: 270px;
-            padding: 20px;
-        }
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-        .content-section h1 {
-            text-align: center;
-        }
-
-        .welcome-section {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        .select2-container {
-            width: 100% !important;
-        }
-    </style>
+    <!-- Select2 CSS for Multi-select Dropdowns -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">    
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.html">Anime Recommender</a>
+        <a class="navbar-brand" href="/">Awesome Anime Answers</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -74,13 +34,16 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tableau.html">Tableau Dashboard</a>
+                    <a class="nav-link" href="/tableau">Anime Awesome Exploration</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about_us.html">About Us</a>
+                    <a class="nav-link" href="/recommender">Anime Awesome Recommender</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about_us">About Us</a>
                 </li>
             </ul>
             <button class="btn btn-outline-light my-2 my-sm-0" id="share-btn">Share!</button>
@@ -93,14 +56,16 @@
         <div class="filter-box">
             <h6>Find by Anime Name</h6>
             <div class="form-group">
-                <input type="text" class="form-control" id="anime_name" placeholder="Type anime name">
+                <select id="anime_name" class="form-control select2-single" placeholder="Type anime name">
+                    <!-- Options will be loaded from the list in JavaScript -->
+                </select>
             </div>
-            <button type="button" class="btn btn-primary btn-block" id="search_anime_btn">Search</button>
+            <button type="button" class="btn btn-primary btn-block" id="search_anime_name_btn">Search</button>
         </div>
 
         <!-- Filter by Features Box -->
         <div class="filter-box">
-            <h6>Filters</h6>
+            <h6>Optional Filters</h6>
             <div class="form-group">
                 <label for="genre">Genres (Select Multiple)</label>
                 <select id="genre" class="form-control select2" multiple="multiple">
@@ -121,7 +86,7 @@
                     <option value="MartialArts">Martial Arts</option>
                     <option value="Mecha">Mecha</option>
                     <option value="Military">Military</option>
-                    <option value="Music">Music</option>
+                    <!-- <option value="Music">Music</option>  Remove to not conflict with Music type -->
                     <option value="Mystery">Mystery</option>
                     <option value="Parody">Parody</option>
                     <option value="Police">Police</option>
@@ -129,7 +94,7 @@
                     <option value="Romance">Romance</option>
                     <option value="Samurai">Samurai</option>
                     <option value="School">School</option>
-                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="SciFi">SciFi</option>
                     <option value="Seinen">Seinen</option>
                     <option value="Shoujo">Shoujo</option>
                     <option value="ShoujoAi">Shoujo Ai</option>
@@ -159,15 +124,17 @@
 
             <div class="form-group">
                 <label for="min_rating">Minimum Rating (0-10)</label>
-                <input type="number" class="form-control" id="min_rating" min="0" max="10" step="1" value="0">
+                <input type="number" class="form-control" id="min-rating-container" min="0" max="10" step="1" value="0">
             </div>
 
             <div class="form-group">
                 <label for="episodes">Maximum Number of Episodes (1-1818)</label>
-                <input type="number" class="form-control" id="episodes" min="1" max="1818" step="1" value="1">
+                <input type="number" class="form-control" id="min-episodes-container" min="1" max="1818" step="1" value="1818">
             </div>
 
-            <button type="button" class="btn btn-dark btn-block" id="filter">Find Anime!</button>
+            <!-- Commenting out the button to be able to use it when no anime name is entered. 
+            This would enable users with little to no anime knowledge to still be able to use the recommender. -->
+            <!-- <button type="button" class="btn btn-dark btn-block" id="search_anime_features_btn">Find Anime!</button> -->
         </div>
     </div>
 
@@ -175,34 +142,38 @@
     <div class="content-section">
         <h1>Welcome to Anime Recommender</h1>
         <div class="welcome-section">
-            <p>This website helps you find anime based on your preferences. You can select multiple genres, types, ratings, and even specify the maximum number of episodes you'd like to watch. To start, simply select your preferences from the filters on the left or type the name of an anime and click "Search" or "Find Anime!".</p>
+            <p>This website helps you find anime based on your preferences. You can select multiple genres, types, ratings, and even specify the maximum number of episodes you'd like to watch. To start, simply find favorite anime from the filters on the left and click "Search". If you would like to narrow down the list, use the optional filters, then click on search again.</p>
         </div>
 
         <div id="recommendations" class="recommendation-section">
             <h2>Your Anime Recommendations Will Appear Here</h2>
-            <!-- Anime recommendations will dynamically load here after the filters or name search are applied -->
+            <table id="data_table_container" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Anime ID</th>
+                        <th>Anime Name</th>
+                        <th>Rating</th>
+                        <th>Members</th>
+                        <th>Distance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic Data Goes Here -->
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            // Initialize the multi-select dropdowns using Select2
-            $('.select2').select2({
-                placeholder: "Select options"
-            });
+    <!-- Load jQuery first -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 
-            // Share button functionality (Twitter example)
-            $('#share-btn').click(function() {
-                const url = window.location.href; // Get the current page URL
-                const text = "Check out this awesome anime recommender!"; // Custom message for sharing
-                const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
-                window.open(twitterShareUrl, '_blank'); // Open the Twitter share dialog in a new window
-            });
+    <!-- Load Select2 JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
 
-            // Handle anime search by name
-            $('#search_anime_btn').click(function() {
-                const animeName = $('#anime_name').val().trim();
-                if (animeName) {
-                    alert(`Searching recommendations for: ${animeName}`);
-                    // You can add the logic to fetch and display the anime recommendations based on the name
-                } else {
+    <!-- Then load your custom JS -->
+    <script src="static/js/logic.js"></script>
+
+</body>
+
+</html>
