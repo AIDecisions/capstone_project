@@ -133,7 +133,6 @@ $(document).ready(function() {
     //     // Loop through the predictions and create table rows
     //     recommendations.forEach(function(pred) {
     //         let row = `<tr>
-    //                         <td>${recommendations.anime_id}</td>
     //                         <td>${recommendations.name}</td>
     //                         <td>${recommendations.rating}</td>
     //                         <td>${recommendations.members}</td>
@@ -154,29 +153,28 @@ $(document).ready(function() {
     // }
 // }
 
-    // // Function to populate the table with the prediction results
-    // function populateTable(recommendations) {
-    //     // Clear previous data
-    //     $('#data_table_container').DataTable().clear().destroy();
+    // Function to populate the table with the prediction results
+    function populateTable(recommendations) {
+        // Clear previous data
+        $('#data_table_container').DataTable().clear().destroy();
 
-    //     // Build the table
-    //     let table = d3.select("#data_table_container");
-    //     let tbody = table.select("tbody");
-    //     tbody.html("");
+        // Build the table
+        let table = d3.select("#data_table_container");
+        let tbody = table.select("tbody");
+        tbody.html("");
 
-    //     // Append a row for each anime
-    //     for (let i = 0; i < recommendations.length; i++) {
-    //         let row = tbody.append("tr");
-    //         row.append("td").text(recommendations[i].anime_id);
-    //         row.append("td").text(recommendations[i].name);
-    //         row.append("td").text(recommendations[i].rating);
-    //         row.append("td").text(recommendations[i].members);
-    //         row.append("td").text(recommendations[i].distance.toFixed(3));
-    //     }
+        // Append a row for each anime
+        for (let i = 0; i < recommendations.length; i++) {
+            let row = tbody.append("tr");
+            row.append("td").text(recommendations[i].name);
+            row.append("td").text(recommendations[i].rating);
+            row.append("td").text(recommendations[i].members);
+            row.append("td").text(recommendations[i].distances.toFixed(3));
+        }
 
-    //     // Create the datatable
-    //     $('#data_table_container').DataTable();
-    // }
+        // Create the datatable
+        $('#data_table_container').DataTable({"order": [[3,"asc"]]});
+    }
 
     function makePredictions_byname() {
         let anime_id = $('#anime_name').val().trim();
@@ -268,7 +266,7 @@ $(document).ready(function() {
                         const predictions = JSON.parse(returnedData.prediction);
 
                         // Sort by distances (ascending)
-                        predictions.sort((a, b) => a.distance - b.distance);
+                        predictions.sort((a, b) => a.distances - b.distances);
 
                         console.log (predictions);
                         // Populate the table with the predictions
@@ -330,7 +328,7 @@ $(document).ready(function() {
     // Initialize all components
     function initializeApp() {
         loadAnimeNames();  // Load the anime names from sqlite
-        // populateTable([]);  // Initialize the table with empty data
+        populateTable([]);  // Initialize the table with empty data
         initializeMultiSelect();  // Initialize the genres and types multi-selects
         handleSearchButtonClick();  // Set up the event listener for the search button
         initializeShareButton();  // Set up the share button functionality

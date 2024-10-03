@@ -162,3 +162,12 @@ body {
     font-size: 1.1rem;
     margin: 5px 0;
 }
+
+#data_table_container_wrapper {
+    margin-top: 20px;
+}
+
+#data_table_container {
+    width: 100%;
+    margin: 0 auto;  /* Center the table */
+}
